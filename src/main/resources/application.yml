@@ -24,3 +24,6 @@ uri:
   scheme: http
   host: localhost
   port: 8080
+
+message:
+  default: Invalid information

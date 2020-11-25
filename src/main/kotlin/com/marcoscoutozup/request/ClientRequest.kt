@@ -11,15 +11,15 @@ import javax.validation.constraints.Past
 @Introspected
 class ClientRequest {
 
-        @field:NotBlank(message = "O nome é obrigatório")
+        @field:NotBlank(message = "notblank.nome")
         lateinit var nome: String
 
-        @field:NotNull(message = "A data de nascimento é obrigatória")
-        @field:Past(message = "A data de nascimento deve ser passado")
+        @field:NotNull(message = "notnull.datadenascimento")
+        @field:Past(message = "past.datadenascimento")
         @field:JsonFormat(pattern = "dd/MM/yyyy")
         lateinit var dataDeNascimento: LocalDate
 
-        @field:NotBlank(message = "O documento é obrigatório")
+        @field:NotBlank(message = "notblank.documento")
         lateinit var documento: String
 
         fun toCliente(): Cliente = Cliente(this.nome, this.dataDeNascimento, this.documento)
