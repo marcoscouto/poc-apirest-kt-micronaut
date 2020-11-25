@@ -6,7 +6,7 @@ import io.micronaut.context.i18n.ResourceBundleMessageSource
 import javax.inject.Singleton
 
 @Factory
-class Internacionalization {
+class Internationalization {
 
     @Singleton
     fun messageSource(): MessageSource = ResourceBundleMessageSource("messages")
