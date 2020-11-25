@@ -2,6 +2,7 @@ package com.marcoscoutozup.domain
 
 import com.marcoscoutozup.request.ClientRequest
 import com.marcoscoutozup.response.ClienteResponse
+import com.marcoscoutozup.validator.cpf.Cpf
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.GenericGenerator
 import java.time.LocalDate
