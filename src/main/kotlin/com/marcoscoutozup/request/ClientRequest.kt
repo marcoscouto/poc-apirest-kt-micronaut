@@ -11,7 +11,7 @@ import javax.validation.constraints.Past
 @Introspected
 class ClientRequest {
 
-        @NotBlank(message = "O nome é obrigatório")
+        @field:NotBlank(message = "O nome é obrigatório")
         lateinit var nome: String
 
         @field:NotNull(message = "A data de nascimento é obrigatória")
