@@ -21,6 +21,6 @@ quantidade:
   elementos: 5
 
 uri:
-  scheme: "http"
-  host: "localhost"
+  scheme: http
+  host: localhost
   port: 8080
