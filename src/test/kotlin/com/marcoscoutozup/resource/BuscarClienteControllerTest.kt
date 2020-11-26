@@ -38,8 +38,8 @@ class BuscarClienteControllerTest {
     }
 
     @Test
-    @DisplayName("Deve lançar excessão se a pagina for zero ou negativa")
-    fun deveLancarExcessaoSeAPaginaForZeroOuNegativa() {
+    @DisplayName("Deve lançar exceção se a pagina for zero ou negativa")
+    fun deveLancarExcecaoSeAPaginaForZeroOuNegativa() {
         assertThrows(IllegalArgumentException::class.java) { controller.buscarTodosOsClientes(0) }
     }
 
