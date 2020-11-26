@@ -1,14 +1,15 @@
 micronaut:
   application:
-    name: crud
+    name: micronaut-kt
+
 datasources:
   default:
-    url: jdbc:postgresql://localhost:5432/example
-    driverClassName: org.postgresql.Driver
-    username: root
-    password: root
-    schema-generate: CREATE_DROP
-    dialect: POSTGRES
+    url: ${DATABASE_URL:`jdbc:postgresql://localhost:5432/example`}
+    driverClassName: ${DATABASE_DRIVER:org.postgresql.Driver}
+    username: ${DATABASE_USERNAME:root}
+    password: ${DATASE_PASSWORD:root}
+    schema-generate: ${DATABASE_STRATEGY:CREATE_DROP}
+    dialect: ${DATABASE_DIALECT:POSTGRES}
 
 jpa:
   default:
@@ -18,12 +19,12 @@ jpa:
           auto: update
 
 quantidade:
-  elementos: 5
+  elementos: ${QUANTIDADE_DE_ELEMENTOS:5}
 
 uri:
-  scheme: http
-  host: localhost
-  port: 8080
+  scheme: ${SCHEME:http}
+  host: ${HOST:localhost}
+  port: ${PORT:8080}
 
 message:
   default: Invalid information

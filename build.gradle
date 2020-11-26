@@ -44,7 +44,6 @@ dependencies {
     testCompile("org.mockito:mockito-core:2.+")
 }
 
-
 application {
     mainClass.set("com.marcoscoutozup.ApplicationKt")
 }
@@ -64,7 +63,6 @@ tasks {
             jvmTarget = "11"
         }
     }
-
 
 }
 
