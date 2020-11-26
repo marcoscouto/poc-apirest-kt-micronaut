@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull
 import javax.validation.constraints.Past
 
 @Introspected
-class ClientRequest {
+class ClienteRequest {
 
         @field:NotBlank(message = "notblank.nome")
         lateinit var nome: String

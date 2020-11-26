@@ -1,7 +1,7 @@
 package com.marcoscoutozup.resource
 
 import com.marcoscoutozup.repository.ClienteRepository
-import com.marcoscoutozup.request.ClientRequest
+import com.marcoscoutozup.request.ClienteRequest
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
@@ -19,7 +19,7 @@ class AtualizarClienteController(val repository: ClienteRepository) {
 
     @Put("/{id}")
     fun atualizarCliente(@QueryValue id: String,
-                         @Body @Valid clientRequest: ClientRequest) : HttpResponse<Any> {
+                         @Body @Valid clientRequest: ClienteRequest) : HttpResponse<Any> {
 
         log.info("Buscando o cliente para atualização pelo id [{}]", id)
         val clienteProcurado = repository.findById(id)

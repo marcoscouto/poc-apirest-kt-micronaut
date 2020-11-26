@@ -41,6 +41,7 @@ dependencies {
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
     runtimeOnly("org.postgresql:postgresql")
     testRuntimeOnly("org.testcontainers:postgresql")
+    testCompile("org.mockito:mockito-core:2.+")
 }
 
 

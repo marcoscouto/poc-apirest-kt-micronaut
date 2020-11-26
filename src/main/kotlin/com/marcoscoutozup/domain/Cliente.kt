@@ -1,8 +1,7 @@
 package com.marcoscoutozup.domain
 
-import com.marcoscoutozup.request.ClientRequest
+import com.marcoscoutozup.request.ClienteRequest
 import com.marcoscoutozup.response.ClienteResponse
-import com.marcoscoutozup.validator.cpf.Cpf
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.GenericGenerator
 import java.time.LocalDate
@@ -40,7 +39,7 @@ data class Cliente (
         fun toClientResponse(): ClienteResponse =
                 ClienteResponse(this.id, this.nome, this.dataDeNascimento, this.documento)
 
-        fun atualizarCliente(clientRequest: ClientRequest) {
+        fun atualizarCliente(clientRequest: ClienteRequest) {
                 this.nome = clientRequest.nome
                 this.dataDeNascimento = clientRequest.dataDeNascimento
                 this.documento = clientRequest.documento

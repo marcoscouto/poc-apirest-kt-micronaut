@@ -1,7 +1,7 @@
 package com.marcoscoutozup.resource
 
 import com.marcoscoutozup.repository.ClienteRepository
-import com.marcoscoutozup.request.ClientRequest
+import com.marcoscoutozup.request.ClienteRequest
 import io.micronaut.context.annotation.Value
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpResponse
@@ -23,7 +23,7 @@ class CadastrarClienteController (val repository: ClienteRepository,
     val log = LoggerFactory.getLogger(CadastrarClienteController::class.java)
 
     @Post
-    fun cadastrarCliente(@Body @Valid clientRequest: ClientRequest, httpRequest: HttpRequest<Any>): HttpResponse<Any> {
+    fun cadastrarCliente(@Body @Valid clientRequest: ClienteRequest, httpRequest: HttpRequest<Any>): HttpResponse<Any> {
 
         log.info("Solicitação de cadastro de cliente")
 
