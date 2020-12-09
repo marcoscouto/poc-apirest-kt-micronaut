@@ -26,6 +26,8 @@ micronaut {
 
 dependencies {
     kapt("io.micronaut.data:micronaut-data-processor")
+    kapt("io.micronaut.openapi:micronaut-openapi")
+
     implementation("io.micronaut:micronaut-validation")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
@@ -37,10 +39,14 @@ dependencies {
     implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
     implementation("io.micronaut.beanvalidation:micronaut-hibernate-validator:3.0.0")
     implementation("org.slf4j:slf4j-api:1.7.25")
+    implementation("io.swagger.core.v3:swagger-annotations")
+
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
     runtimeOnly("org.postgresql:postgresql")
+
     testRuntimeOnly("org.testcontainers:postgresql")
+
     testCompile("org.mockito:mockito-core:2.+")
 }
 
@@ -50,6 +56,12 @@ application {
 
 java {
     sourceCompatibility = JavaVersion.toVersion("11")
+}
+
+kapt {
+    arguments {
+        arg("micronaut.openapi.views.spec", "redoc.enabled=true,rapidoc.enabled=true,swagger-ui.enabled=true,swagger-ui.theme=flattop")
+    }
 }
 
 tasks {
