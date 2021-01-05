@@ -6,34 +6,24 @@ import com.marcoscoutozup.response.ClienteResponse
 import io.micronaut.data.model.Page
 import io.micronaut.data.model.Pageable
 import io.micronaut.http.HttpStatus
+import io.mockk.every
+import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.mockito.Mock
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.any
-import org.mockito.MockitoAnnotations.initMocks
 import java.util.*
 
 class BuscarClienteControllerTest {
 
-    @Mock
-    lateinit var clienteRepository: ClienteRepository
-
-    @Mock
-    lateinit var clienteResponse: ClienteResponse
-
-    @Mock
-    lateinit var cliente: Cliente
-
+    var clienteRepository: ClienteRepository = mockk()
+    var clienteResponse: ClienteResponse = mockk()
+    var cliente: Cliente = mockk()
     lateinit var controller: BuscarClienteController
-
     var page: Int = Random().nextInt(10) + 1
 
     @BeforeEach
     fun setup(){
-        initMocks(this)
         controller = BuscarClienteController(clienteRepository, page)
     }
 
@@ -47,7 +37,7 @@ class BuscarClienteControllerTest {
     @Test
     @DisplayName("Não deve retornar cliente por id se não for encontrado")
     fun naoDeveRetornarClientePorIdSeNaoForEncotrado() {
-        `when`(clienteRepository.findById(any())).thenReturn(Optional.empty())
+        every { clienteRepository.findById(any()) } returns Optional.empty()
         val resultado = controller.buscarClientePorId(String())
         assertEquals(HttpStatus.NOT_FOUND, resultado.status)
         assertTrue(resultado.body() is Map<*,*>)
@@ -56,8 +46,8 @@ class BuscarClienteControllerTest {
     @Test
     @DisplayName("Deve buscar cliente por id")
     fun deveBuscarClientePorId() {
-        `when`(clienteRepository.findById(any())).thenReturn(Optional.of(cliente))
-        `when`(cliente.toClientResponse()).thenReturn(clienteResponse)
+        every { clienteRepository.findById(any()) } returns Optional.of(cliente)
+        every { cliente.toClientResponse() } returns clienteResponse
         val resultado = controller.buscarClientePorId(String())
         assertEquals(HttpStatus.OK, resultado.status)
         assertTrue(resultado.body() is ClienteResponse)
@@ -67,7 +57,7 @@ class BuscarClienteControllerTest {
     @Test
     @DisplayName("Não deve retornar clientes se não forem encontrados")
     fun naoDeveRetornarClientesSeNaoForemEncontrados() {
-        `when`(clienteRepository.findAll(any())).thenReturn(Page.empty())
+        every { clienteRepository.findAll(any()) } returns Page.empty()
         val resultado = controller.buscarTodosOsClientes(page)
         assertEquals(HttpStatus.NOT_FOUND, resultado.status)
         assertTrue(resultado.body() is Map<*,*>)
@@ -76,7 +66,8 @@ class BuscarClienteControllerTest {
     @Test
     @DisplayName("Deve buscar clientes")
     fun deveBuscarClientes() {
-        `when`(clienteRepository.findAll(any())).thenReturn(Page.of(listOf(cliente), Pageable.from(page), Random().nextLong()))
+        every { clienteRepository.findAll(any()) } returns Page.of(listOf(cliente), Pageable.from(page), Random().nextLong())
+        every { cliente.toClientResponse() } returns clienteResponse
         val resultado = controller.buscarTodosOsClientes(page)
         assertEquals(HttpStatus.OK, resultado.status)
         assertTrue(resultado.body() is Map<*,*>)

@@ -3,41 +3,34 @@ package com.marcoscoutozup.resource
 import com.marcoscoutozup.domain.Cliente
 import com.marcoscoutozup.repository.ClienteRepository
 import com.marcoscoutozup.request.ClienteRequest
+import com.marcoscoutozup.response.ClienteResponse
 import io.micronaut.http.HttpStatus
+import io.mockk.every
+import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.mockito.Mock
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.any
-import org.mockito.MockitoAnnotations.initMocks
 import java.util.*
 
 class AtualizarClienteControllerTest {
 
-    @Mock
-    lateinit var clienteRepository: ClienteRepository
-
-    @Mock
-    lateinit var clientRequest: ClienteRequest
-
-    @Mock
-    lateinit var cliente: Cliente
-
+    var clienteRepository: ClienteRepository = mockk()
+    var clientRequest: ClienteRequest = mockk()
+    var cliente: Cliente = mockk()
+    var clienteResponse: ClienteResponse = mockk()
     lateinit var controller: AtualizarClienteController
 
     @BeforeEach
     fun setup(){
-        initMocks(this)
         controller = AtualizarClienteController(clienteRepository)
     }
 
     @Test
     @DisplayName("Não deve atualizar cliente se não for encontrado")
     fun naoDeveAtualizarClienteSeNaoForEncontrado() {
-        `when`(clienteRepository.findById(any())).thenReturn(Optional.empty())
+        every { clienteRepository.findById(any()) } returns Optional.empty()
         val resultado = controller.atualizarCliente(String(), clientRequest)
         assertEquals(HttpStatus.NOT_FOUND, resultado.status)
         assertTrue(resultado.body() is Map<*, *>)
@@ -46,7 +39,12 @@ class AtualizarClienteControllerTest {
     @Test
     @DisplayName("Deve atualizar Cliente")
     fun deveAtualizarCliente() {
-        `when`(clienteRepository.findById(any())).thenReturn(Optional.of(cliente))
+        every { clienteRepository.findById(any()) } returns Optional.of(cliente)
+        every { clienteRepository.update(any()) } returns cliente
+
+        every { cliente.atualizarCliente(any()) } returns Unit
+        every { cliente.toClientResponse() } returns clienteResponse
+
         val resultado = controller.atualizarCliente(String(), clientRequest)
         assertEquals(HttpStatus.OK, resultado.status)
     }
